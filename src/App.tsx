@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, useLocation } from "react-router-dom";
+import Home from "./container/home";
+import Navbar from "./components/organisms/navbar";
+import About from "./container/about";
+import Contact from "./container/contact";
+import Footer from "./components/organisms/footer";
+import { Stack } from "@mui/material";
+import Analyze from "./container/analyze";
 
-function App() {
+export default function App() {
+  const location = useLocation();
+  const hideFooter = location.pathname === "/*";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Stack height="100vh">
+      <Navbar />
+      <Routes>
+        <Route path="/*" element={<Home />} />
+        <Route path="/analyze" element={<Analyze />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      {!hideFooter && <Footer />}
+    </Stack>
   );
 }
-
-export default App;
